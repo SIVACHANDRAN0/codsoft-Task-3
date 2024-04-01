@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alarm Clock</title>
+<link rel="stylesheet" href="styles3.css">
+</head>
+<body>
+<div class="container">
+  <h1>Alarm Clock</h1>
+  <div id="time"></div>
+  <div id="date"></div>
+  <button onclick="showSetAlarm()">Set Alarm</button>
+  <div id="setAlarmContainer" style="display: none;">
+    <label for="alarmTime">Set Alarm Time:</label>
+    <input type="time" id="alarmTime">
+    <label for="alarmTone">Choose Alarm Tone:</label>
+    <select id="alarmTone">
+      <option value="tone1">Tone 1</option>
+      <option value="tone2">Tone 2</option>
+      <option value="tone3">Tone 3</option>
+    </select>
+    <button onclick="setAlarm()">Set</button>
+  </div>
+  <h2>Alarms</h2>
+  <ul id="alarmList"></ul>
+</div>
+
+<script>
+// Function to display current time and date
+function displayTimeAndDate() {
+  const now = new Date();
+  const timeElement = document.getElementById('time');
+  const dateElement = document.getElementById('date');
+  const timeString = now.toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: '2-digit' });
+  const dateString = now.toDateString();
+  timeElement.textContent = "Current Time: " + timeString;
+  dateElement.textContent = "Date: " + dateString;
+}
+
+// Function to show the set alarm section
+function showSetAlarm() {
+  const setAlarmContainer = document.getElementById('setAlarmContainer');
+  setAlarmContainer.style.display = 'block';
+}
+
+// Function to set a new alarm
+function setAlarm() {
+  const alarmTime = document.getElementById('alarmTime').value;
+  const alarmTone = document.getElementById('alarmTone').value;
+  const alarmList = document.getElementById('alarmList');
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <span>${alarmTime}</span>
+    <span>${alarmTone}</span>
+    <input type="checkbox" onchange="toggleAlarm(this)">`;
+  alarmList.appendChild(li);
+}
+
+// Function to toggle alarm on/off
+function toggleAlarm(checkbox) {
+  if (checkbox.checked) {
+    // Code to activate the alarm
+    alert("Alarm activated!");
+  } else {
+    // Code to deactivate the alarm
+    alert("Alarm deactivated!");
+  }
+}
+
+// Update time and date every second
+setInterval(displayTimeAndDate, 1000);
+
+// Display current time and date on app launch
+displayTimeAndDate();
+</script>
+</body>
+</html>
